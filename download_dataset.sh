@@ -1,15 +1,10 @@
-mkdir datasets
-FILE=$1
 
-if [[ $FILE != "ae_photos" && $FILE != "apple2orange" && $FILE != "summer2winter_yosemite" &&  $FILE != "horse2zebra" && $FILE != "monet2photo" && $FILE != "cezanne2photo" && $FILE != "ukiyoe2photo" && $FILE != "vangogh2photo" && $FILE != "maps" && $FILE != "cityscapes" && $FILE != "facades" && $FILE != "iphone2dslr_flower" && $FILE != "ae_photos" ]]; then
-    echo "Available datasets are: apple2orange, summer2winter_yosemite, horse2zebra, monet2photo, cezanne2photo, ukiyoe2photo, vangogh2photo, maps, cityscapes, facades, iphone2dslr_flower, ae_photos"
-    exit 1
-fi
+export KAGGLE_USERNAME="kalaiselvannk"
+export KAGGLE_KEY="4f9449b9ef18af2a0715b1c0e6472998"
+kaggle datasets download -d thedagger/pokemon-generation-one
+kaggle datasets download -d jessicali9530/stanford-dogs-dataset
+unzip stanford-dogs-dataset.zip -d ./dataset_dogs
+tar -xvf ./dataset_dogs/images.tar
+rm -r dataset_dogs
+unzip pokemon-generation-one.zip -d ./dataset_pokemon
 
-URL=https://people.eecs.berkeley.edu/~taesung_park/CycleGAN/datasets/$FILE.zip
-ZIP_FILE=./datasets/$FILE.zip
-TARGET_DIR=./datasets/$FILE/
-wget -N $URL -O $ZIP_FILE
-mkdir $TARGET_DIR
-unzip $ZIP_FILE -d ./datasets/
-rm $ZIP_FILE
