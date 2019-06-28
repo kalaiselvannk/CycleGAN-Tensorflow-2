@@ -7,4 +7,6 @@ unzip stanford-dogs-dataset.zip -d ./dataset_dogs
 tar -xf ./dataset_dogs/images.tar
 rm -r dataset_dogs
 unzip pokemon-generation-one.zip -d ./dataset_pokemon
-
+rm ./dataset_pokemon/__MACOSX
+rm pokemon-generation-one.zip
+rm stanford-dogs-dataset.zip
