@@ -11,7 +11,7 @@ import tqdm
 
 import data
 import module
-
+import matplotlib.pyplot as plt
 
 # ==============================================================================
 # =                                   param                                    =
@@ -46,7 +46,7 @@ py.args_to_yaml(py.join(output_dir, 'settings.yml'), args)
 # =                                    data                                    =
 # ==============================================================================
 
-A_img_paths = py.glob("./Images/*/*.jpg')
+A_img_paths = py.glob("./Images/*/*.jpg")
 B_img_paths = py.glob('./dataset_pokemon/dataset/*/*.jpg')
 A_B_dataset, len_dataset = data.make_zip_dataset(A_img_paths, B_img_paths, args.batch_size, args.load_size, args.crop_size, training=True, repeat=False)
 
@@ -211,6 +211,8 @@ with train_summary_writer.as_default():
                 A, B = next(test_iter)
                 A2B, B2A, A2B2A, B2A2B = sample(A, B)
                 img = im.immerge(np.concatenate([A, A2B, A2B2A, B, B2A, B2A2B], axis=0), n_rows=2)
+		plt.imshow(img)
+		plt.show()
                 im.imwrite(img, py.join(sample_dir, 'iter-%09d.jpg' % G_optimizer.iterations.numpy()))
 
         # save checkpoint
