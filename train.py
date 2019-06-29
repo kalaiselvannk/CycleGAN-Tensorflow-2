@@ -53,8 +53,8 @@ A_B_dataset, len_dataset = data.make_zip_dataset(A_img_paths, B_img_paths, args.
 A2B_pool = data.ItemPool(args.pool_size)
 B2A_pool = data.ItemPool(args.pool_size)
 
-A_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/A/*.jpg') dogs image
-B_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/B/*.jpg') pokemon
+A_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/A/*.jpg') ##dogs image
+B_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/B/*.jpg') ##pokemon
 A_B_dataset_test, _ = data.make_zip_dataset(A_img_paths_test, B_img_paths_test, args.batch_size, args.load_size, args.crop_size, training=False, repeat=True)
 
 
