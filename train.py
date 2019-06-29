@@ -8,7 +8,7 @@ import tensorflow.keras as keras
 import tf2lib as tl
 import tf2gan as gan
 import tqdm
-
+import glob
 import data
 import module
 import matplotlib.pyplot as plt
@@ -46,15 +46,15 @@ py.args_to_yaml(py.join(output_dir, 'settings.yml'), args)
 # =                                    data                                    =
 # ==============================================================================
 
-A_img_paths = py.glob("./Images/*/*.jpg")
-B_img_paths = py.glob('./dataset_pokemon/dataset/*/*.jpg')
+A_img_paths = glob.glob("./Images/*/*.jpg")
+B_img_paths = glob.glob('./dataset_pokemon/dataset/*/*.jpg')
 A_B_dataset, len_dataset = data.make_zip_dataset(A_img_paths, B_img_paths, args.batch_size, args.load_size, args.crop_size, training=True, repeat=False)
 
 A2B_pool = data.ItemPool(args.pool_size)
 B2A_pool = data.ItemPool(args.pool_size)
 
-A_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/A/*.jpg') ##dogs image
-B_img_paths_test = py.glob('./CycleGAN-Tensorflow-2/testset/B/*.jpg') ##pokemon
+A_img_paths_test = glob.glob('./CycleGAN-Tensorflow-2/testset/A/*.jpg') ##dogs image
+B_img_paths_test = glob.glob('./CycleGAN-Tensorflow-2/testset/B/*.jpg') ##pokemon
 A_B_dataset_test, _ = data.make_zip_dataset(A_img_paths_test, B_img_paths_test, args.batch_size, args.load_size, args.crop_size, training=False, repeat=True)
 
 
