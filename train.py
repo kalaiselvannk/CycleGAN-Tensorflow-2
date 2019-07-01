@@ -7,7 +7,7 @@ import tensorflow as tf
 import tensorflow.keras as keras
 import tf2lib as tl
 import tf2gan as gan
-from tqdm import tqdm_notebook as tqdm
+import tqdm
 import glob
 import data
 import module
@@ -199,7 +199,7 @@ with train_summary_writer.as_default():
         ep_cnt.assign_add(1)
 
         # train for an epoch
-        for A, B in tqdm.tqdm(A_B_dataset, desc='Inner Epoch Loop', total=len_dataset):
+        for A, B in tqdm.tqdm_notebook(A_B_dataset, desc='Inner Epoch Loop', total=len_dataset):
             G_loss_dict, D_loss_dict = train_step(A, B)
 
             # # summary
