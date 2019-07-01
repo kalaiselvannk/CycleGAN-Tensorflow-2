@@ -7,12 +7,13 @@ import tensorflow as tf
 import tensorflow.keras as keras
 import tf2lib as tl
 import tf2gan as gan
-import tqdm
+from tqdm import tqdm_notebook as tqdm
 import glob
 import data
 import module
 import matplotlib.pyplot as plt
-
+from google.colab import drive
+drive.mount('/content/gdrive')
 # ==============================================================================
 # =                                   param                                    =
 # ==============================================================================
@@ -21,10 +22,10 @@ py.arg('--dataset', default='horse2zebra')
 py.arg('--datasets_dir', default='datasets')
 py.arg('--load_size', type=int, default=286)  # load image to this size
 py.arg('--crop_size', type=int, default=256)  # then crop to this size
-py.arg('--batch_size', type=int, default=1)
-py.arg('--epochs', type=int, default=200)
-py.arg('--epoch_decay', type=int, default=100)  # epoch to start decaying learning rate
-py.arg('--lr', type=float, default=0.0002)
+py.arg('--batch_size', type=int, default=4)
+py.arg('--epochs', type=int, default=20)
+py.arg('--epoch_decay', type=int, default=15)  # epoch to start decaying learning rate
+py.arg('--lr', type=float, default=0.0003)
 py.arg('--beta_1', type=float, default=0.5)
 py.arg('--adversarial_loss_mode', default='lsgan', choices=['gan', 'hinge_v1', 'hinge_v2', 'lsgan', 'wgan'])
 py.arg('--gradient_penalty_mode', default='none', choices=['none', 'dragan', 'wgan-gp'])
@@ -35,7 +36,7 @@ py.arg('--pool_size', type=int, default=50)  # pool size to store fake samples
 args = py.args()
 
 # output_dir
-output_dir = 'output/'
+output_dir = "gdrive/'My Drive'/output"
 py.mkdir(output_dir)
 
 # save settings
@@ -207,13 +208,13 @@ with train_summary_writer.as_default():
             tl.summary({'learning rate': G_lr_scheduler.current_learning_rate}, step=G_optimizer.iterations, name='learning rate')
 
             # sample
-            if G_optimizer.iterations.numpy() % 100 == 0:
+            if G_optimizer.iterations.numpy() % 250 == 0:
                 A, B = next(test_iter)
                 A2B, B2A, A2B2A, B2A2B = sample(A, B)
                 img = im.immerge(np.concatenate([A, A2B, A2B2A, B, B2A, B2A2B], axis=0), n_rows=2)
                 plt.imshow(img)
                 plt.show()
                 im.imwrite(img, py.join(sample_dir, 'iter-%09d.jpg' % G_optimizer.iterations.numpy()))
-
+                checkpoint.save(ep)
         # save checkpoint
         checkpoint.save(ep)
