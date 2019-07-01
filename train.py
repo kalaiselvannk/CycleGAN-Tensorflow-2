@@ -37,7 +37,7 @@ args = py.args()
 
 # output_dir
 output_dir = "gdrive/'My Drive'/output"
-py.mkdir(output_dir)
+#py.mkdir(output_dir)
 
 # save settings
 py.args_to_yaml(py.join(output_dir, 'settings.yml'), args)
