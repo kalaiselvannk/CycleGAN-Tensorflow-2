@@ -13,7 +13,7 @@ import data
 import module
 import matplotlib.pyplot as plt
 from google.colab import drive
-drive.mount('/content/gdrive')
+drive.mount('/content/gdrive',force_remount=False)
 # ==============================================================================
 # =                                   param                                    =
 # ==============================================================================
@@ -36,7 +36,7 @@ py.arg('--pool_size', type=int, default=50)  # pool size to store fake samples
 args = py.args()
 
 # output_dir
-output_dir = "gdrive/'My Drive'/output"
+output_dir = "gdrive/My Drive/output"
 #py.mkdir(output_dir)
 
 # save settings
